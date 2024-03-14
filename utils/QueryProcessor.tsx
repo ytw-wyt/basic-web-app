@@ -47,15 +47,16 @@ export default function QueryProcessor(query: string): string {
     }
   }
 
-  if (query.toLowerCase().includes("square and cube")) {
-    const numbers = query.match(/\d+/g);
-    if (numbers) {
-      for (const num of numbers) {
-        const numVal = parseInt(num);
-        if (Math.sqrt(numVal) % 1 === 0 && Math.cbrt(numVal) % 1 === 0) {
-          return num;
-        }
-      }
+  if (query.startsWith("Which of the following numbers is both a square and a cube:")) {
+    const numbersInQuery = query.match(/\d+/g); 
+    if (numbersInQuery) {
+      const numbers = numbersInQuery.map(Number); 
+      const validNumbers = numbers.filter(number => {
+        const squareRoot = Math.sqrt(number);
+        const cubeRoot = Math.cbrt(number);
+        return squareRoot === Math.floor(squareRoot) && cubeRoot === Math.floor(cubeRoot);
+      });
+      return `${validNumbers.join(", ")}`;
     }
   }
   return "";
