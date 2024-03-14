@@ -37,5 +37,17 @@ export default function QueryProcessor(query: string): string {
       return (num1 + num2).toString(); // Perform the addition and return the result as a string
     }
   }
+
+  if (query.toLowerCase().includes("square and cube")) {
+    const numbers = query.match(/\d+/g);
+    if (numbers) {
+      for (const num of numbers) {
+        const numVal = parseInt(num);
+        if (Math.sqrt(numVal) % 1 === 0 && Math.cbrt(numVal) % 1 === 0) {
+          return num;
+        }
+      }
+    }
+  }
   return "";
 }
