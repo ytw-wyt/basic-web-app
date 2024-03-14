@@ -19,12 +19,20 @@ export default function QueryProcessor(query: string): string {
     );
   }
 
-  if (query.toLowerCase().includes("plus")) {
-    const numbers = query.match(/\d+/g);
-    if (numbers && numbers.length === 2) {
-      const result = parseInt(numbers[0]) + parseInt(numbers[1]);
-      return result.toString();
+  if (query.toLowerCase().includes("largest")) {
+    const matches = query.match(/\d+/g); // Find all numbers in the query
+    if (matches) {
+      const numbers = matches.map(Number); // Convert all found strings to numbers
+      const largest = Math.max(...numbers); // Find the largest number
+      return largest.toString(); // Return the largest number as a string
     }
+  }
+
+  const arithmeticMatch = query.match(/(\d+)\s*\+\s*(\d+)/); // Match a basic addition pattern
+  if (arithmeticMatch) {
+    const num1 = parseInt(arithmeticMatch[1], 10);
+    const num2 = parseInt(arithmeticMatch[2], 10);
+    return (num1 + num2).toString(); // Perform the addition and return the result as a string
   }
 
   return "";
