@@ -30,11 +30,10 @@ export default function QueryProcessor(query: string): string {
 
   if (query.toLowerCase().includes("plus")) {
     // Attempt to extract numbers before and after the word "plus"
-    const parts = query.match(/(\d+)\s+plus\s+(\d+)/i);
-    if (parts && parts.length === 3) { // Check if the match was successful and we have the correct parts
-      const num1 = parseInt(parts[1], 10); // First number
-      const num2 = parseInt(parts[2], 10); // Second number
-      return (num1 + num2).toString(); // Perform the addition and return the result as a string
+    const numbers = query.match(/\d+/g); 
+    if (numbers) {
+      const sum = numbers.reduce((acc, curr) => acc + parseInt(curr), 0); // Calculate the sum of all numbers
+      return sum.toString(); // Return the sum as a string
     }
   }
 
