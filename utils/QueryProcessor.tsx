@@ -56,6 +56,15 @@ export default function QueryProcessor(query: string): string {
     }
   }
 
+  if (query.toLowerCase().includes("to the power of")) {
+    const parts = query.match(/(\d+)\s+to the power of\s+(\d+)/i);
+    if (parts && parts.length === 3) { // Check if the match was successful and we have the correct parts
+      const base = parseInt(parts[1], 10); // Base number
+      const exponent = parseInt(parts[2], 10); // Exponent
+      return (Math.pow(base, exponent)).toString(); // Perform the exponentiation and return the result as a string
+    }
+  }
+
   if (query.startsWith("Which of the following numbers is both a square and a cube:")) {
     const numbersInQuery = query.match(/\d+/g); 
     if (numbersInQuery) {
