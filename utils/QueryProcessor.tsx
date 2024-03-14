@@ -43,7 +43,16 @@ export default function QueryProcessor(query: string): string {
     if (parts && parts.length === 3) { // Check if the match was successful and we have the correct parts
       const num1 = parseInt(parts[1], 10); // First number
       const num2 = parseInt(parts[2], 10); // Second number
-      return (num1 + num2).toString(); // Perform the addition and return the result as a string
+      return (num1 * num2).toString(); // Perform the addition and return the result as a string
+    }
+  }
+
+  if (query.toLowerCase().includes("minus")) {
+    const parts = query.match(/(\d+)\s+minus\s+(\d+)/i);
+    if (parts && parts.length === 3) { // Check if the match was successful and we have the correct parts
+      const num1 = parseInt(parts[1], 10); // First number
+      const num2 = parseInt(parts[2], 10); // Second number
+      return (num1 - num2).toString(); // Perform the addition and return the result as a string
     }
   }
 
